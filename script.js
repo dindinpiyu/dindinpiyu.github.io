@@ -175,3 +175,17 @@ body {
 #clock {
     font-size: 14px;
 }
+function updateDate() {
+
+    const now = new Date();
+
+    document.getElementById("date").textContent =
+        now.toLocaleDateString(undefined, {
+            weekday: "short",
+            month: "short",
+            day: "numeric"
+        });
+
+}
+
+updateDate();
