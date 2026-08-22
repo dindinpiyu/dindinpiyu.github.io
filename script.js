@@ -112,9 +112,9 @@ function updateDayCounter() {
 
 /* ---------- weather ---------- */
 /* Uses Open-Meteo (no API key needed, works from static sites).
-   We pull weather_code AND cloud_cover, then use cloud_cover to refine
-   "clear vs cloudy" calls — weather_code alone is too coarse for smaller towns. */
-const WEATHER_CODES = {
+   We pull weather_code, cloud_cover, AND is_day, then use cloud_cover to refine
+   "clear vs cloudy" calls, and is_day to pick sun vs moon icons after dark. */
+const WEATHER_CODES_DAY = {
   0: { icon: "☀️", text: "clear sky" },
   1: { icon: "🌤️", text: "mostly clear" },
   2: { icon: "⛅", text: "partly cloudy" },
@@ -138,18 +138,37 @@ const WEATHER_CODES = {
   99: { icon: "⛈️", text: "thunderstorm, hail" },
 };
 
+// Night versions only differ for the "clear to overcast" family — rain, snow,
+// storms etc. look the same regardless of time of day.
+const WEATHER_CODES_NIGHT = {
+  ...WEATHER_CODES_DAY,
+  0: { icon: "🌙", text: "clear sky" },
+  1: { icon: "🌙", text: "mostly clear" },
+  2: { icon: "☁️", text: "partly cloudy" },
+  3: { icon: "☁️", text: "overcast" },
+};
+
 // Codes 0-3 are the "clear to overcast" family where weather_code alone is
 // unreliable — for these, override using the actual cloud_cover percentage.
 const CLEAR_TO_OVERCAST_CODES = new Set([0, 1, 2, 3]);
 
-function refineByCloudCover(weatherCode, cloudCover) {
+function refineWeather(weatherCode, cloudCover, isDay) {
+  const table = isDay ? WEATHER_CODES_DAY : WEATHER_CODES_NIGHT;
+
   if (!CLEAR_TO_OVERCAST_CODES.has(weatherCode) || typeof cloudCover !== "number") {
-    return WEATHER_CODES[weatherCode] || { icon: "🌡️", text: "unknown" };
+    return table[weatherCode] || { icon: "🌡️", text: "unknown" };
   }
 
-  if (cloudCover < 15) return { icon: "☀️", text: "clear sky" };
-  if (cloudCover < 40) return { icon: "🌤️", text: "mostly clear" };
-  if (cloudCover < 70) return { icon: "⛅", text: "partly cloudy" };
+  if (isDay) {
+    if (cloudCover < 15) return { icon: "☀️", text: "clear sky" };
+    if (cloudCover < 40) return { icon: "🌤️", text: "mostly clear" };
+    if (cloudCover < 70) return { icon: "⛅", text: "partly cloudy" };
+    return { icon: "☁️", text: "cloudy" };
+  }
+
+  if (cloudCover < 15) return { icon: "🌙", text: "clear sky" };
+  if (cloudCover < 40) return { icon: "🌙", text: "mostly clear" };
+  if (cloudCover < 70) return { icon: "☁️", text: "partly cloudy" };
   return { icon: "☁️", text: "cloudy" };
 }
 
@@ -160,12 +179,12 @@ async function fetchWeather(key, city) {
 
   try {
     const unitParam = CONFIG.tempUnit === "fahrenheit" ? "&temperature_unit=fahrenheit" : "";
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code,cloud_cover${unitParam}`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code,cloud_cover,is_day${unitParam}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("weather request failed");
     const data = await res.json();
     const current = data.current;
-    const info = refineByCloudCover(current.weather_code, current.cloud_cover);
+    const info = refineWeather(current.weather_code, current.cloud_cover, current.is_day === 1);
     const unitSymbol = CONFIG.tempUnit === "fahrenheit" ? "°F" : "°C";
 
     iconEl.textContent = info.icon;
