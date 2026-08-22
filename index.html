@@ -1,150 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>For You</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Same Sky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <main class="desktop">
+<div class="stars" id="stars"></div>
 
-        <!-- Ambient background -->
-        <div class="background-glow glow-one"></div>
-        <div class="background-glow glow-two"></div>
-        <div class="background-glow glow-three"></div>
+<header class="hero">
+  <p class="eyebrow">a small site for a big distance</p>
+  <h1 class="title"><span id="name-a">Her</span> <span class="amp">&amp;</span> <span id="name-b">Him</span></h1>
+  <p class="subtitle">two skies, one moon</p>
 
+  <div class="day-counter">
+    <span class="day-counter__number" id="days-together">0</span>
+    <span class="day-counter__label">days, and counting</span>
+  </div>
+</header>
 
-        <!-- Top navigation -->
-        <header class="topbar">
+<main>
 
-            <div class="top-left">
+  <section class="sky-panel" aria-label="Same sky, right now">
+    <div class="city-card" id="city-a">
+      <p class="city-card__label">her sky</p>
+      <p class="city-card__time" id="time-a">--:--</p>
+      <p class="city-card__place" id="place-a">City A</p>
+    </div>
 
-                <div class="window-controls">
-                    <span class="control red"></span>
-                    <span class="control yellow"></span>
-                    <span class="control green"></span>
-                </div>
+    <div class="moon-column">
+      <svg id="moon-svg" viewBox="0 0 120 120" width="88" height="88" aria-hidden="true">
+        <circle cx="60" cy="60" r="56" fill="var(--moon-base)"/>
+        <path id="moon-shadow" fill="var(--sky-deep)" />
+        <circle cx="60" cy="60" r="56" fill="none" stroke="var(--moon-edge)" stroke-width="1.5"/>
+      </svg>
+      <p class="moon-phase-label" id="moon-label">waxing crescent</p>
+      <div class="distance-line">
+        <span class="pin"></span>
+        <span class="line"></span>
+        <span class="pin"></span>
+      </div>
+      <p class="distance-figure" id="distance-figure">-- km apart</p>
+    </div>
 
-                <span class="site-name">
-                    for you.
-                </span>
+    <div class="city-card" id="city-b">
+      <p class="city-card__label">his sky</p>
+      <p class="city-card__time" id="time-b">--:--</p>
+      <p class="city-card__place" id="place-b">City B</p>
+    </div>
+  </section>
 
-            </div>
+  <section class="countdown-section">
+    <p class="section-eyebrow">next time, in person</p>
+    <h2 class="section-title" id="countdown-title">Until we're in the same room</h2>
+    <div class="countdown" id="countdown">
+      <div class="countdown__unit"><span id="cd-days">00</span><label>days</label></div>
+      <div class="countdown__unit"><span id="cd-hours">00</span><label>hrs</label></div>
+      <div class="countdown__unit"><span id="cd-mins">00</span><label>min</label></div>
+      <div class="countdown__unit"><span id="cd-secs">00</span><label>sec</label></div>
+    </div>
+    <p class="countdown__date" id="countdown-date"></p>
+  </section>
 
+  <section class="timeline-section">
+    <p class="section-eyebrow">the story so far</p>
+    <h2 class="section-title">Moments</h2>
+    <div class="timeline" id="timeline"></div>
+  </section>
 
-            <div class="top-center">
-                <span>made with love</span>
-                <span class="tiny-heart">♥</span>
-            </div>
+  <section class="notes-section">
+    <p class="section-eyebrow">tap one</p>
+    <h2 class="section-title">Small reasons</h2>
+    <div class="notes-grid" id="notes-grid"></div>
+  </section>
 
+  <section class="hug-section">
+    <p class="section-eyebrow">for right now</p>
+    <button class="hug-button" id="hug-button">send a hug across the distance</button>
+    <p class="hug-message" id="hug-message" aria-live="polite"></p>
+  </section>
 
-            <div class="top-right">
+</main>
 
-                <span>Saturday</span>
+<footer class="site-footer">
+  <p>made with too much time and one very specific person in mind.</p>
+</footer>
 
-                <span class="separator">•</span>
-
-                <span>9:42 PM</span>
-
-            </div>
-
-        </header>
-
-
-        <!-- Main content -->
-
-        <section class="hero">
-
-            <div class="hero-content">
-
-                <p class="eyebrow">
-                    A LITTLE PLACE ON THE INTERNET
-                </p>
-
-                <h1>
-                    This is<br>
-                    <span>for you.</span>
-                </h1>
-
-                <p class="hero-description">
-                    I could've just sent you a message.
-                    <br>
-                    But where's the fun in that?
-                </p>
-
-                <button class="enter-button">
-
-                    <span>Enter</span>
-
-                    <span class="arrow">
-                        →
-                    </span>
-
-                </button>
-
-            </div>
-
-
-            <!-- Decorative heart -->
-
-            <div class="hero-decoration">
-
-                <div class="orbit orbit-one"></div>
-                <div class="orbit orbit-two"></div>
-
-                <div class="heart">
-                    ♥
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- Bottom information -->
-
-        <footer class="bottom-bar">
-
-            <div class="footer-left">
-
-                <span class="status-dot"></span>
-
-                <span>
-                    somewhere on the internet
-                </span>
-
-            </div>
-
-
-            <div class="footer-center">
-
-                <span>
-                    scroll to explore
-                </span>
-
-                <span class="scroll-line"></span>
-
-            </div>
-
-
-            <div class="footer-right">
-
-                <span>
-                    01 / 04
-                </span>
-
-            </div>
-
-        </footer>
-
-    </main>
-
+<script src="script.js"></script>
 </body>
-
 </html>
