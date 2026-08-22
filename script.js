@@ -44,7 +44,7 @@ const CONFIG = {
 
   // Spotify playlist embed. Open your playlist in Spotify -> Share -> Embed playlist,
   // then paste just the src URL from the iframe here (looks like the example below).
-  spotifyEmbedUrl: "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator",
+  spotifyEmbedUrl: "https://open.spotify.com/playlist/7sQgpDEQvHHD1Mv849huGC",
 
   // Timeline of memories — add as many as you like, in order
   timeline: [
