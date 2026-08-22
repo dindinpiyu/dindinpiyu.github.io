@@ -1,125 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Her World ❤️</title>
+    <title>For You</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="desktop">
+    <main class="desktop">
 
-        <!-- TOP BAR -->
-        <div class="topbar">
-
-            <div class="brand">
-                ❤️ Her World
-                <span>— just for you</span>
-            </div>
-
-            <div class="top-right">
-                <span>♡</span>
-                <span id="date">Loading...</span>
-                <span id="top-clock">00:00</span>
-            </div>
-
-        </div>
+        <!-- Ambient background -->
+        <div class="background-glow glow-one"></div>
+        <div class="background-glow glow-two"></div>
+        <div class="background-glow glow-three"></div>
 
 
-        <!-- WELCOME -->
-        <div class="welcome">
+        <!-- Top navigation -->
+        <header class="topbar">
 
-            <h1>Her World</h1>
+            <div class="top-left">
 
-            <p>
-                A little corner of the internet made just for you ❤️
-            </p>
+                <div class="window-controls">
+                    <span class="control red"></span>
+                    <span class="control yellow"></span>
+                    <span class="control green"></span>
+                </div>
 
-        </div>
-
-
-        <!-- APPS -->
-        <div class="apps">
-
-            <div class="app" onclick="openApp('quiz')">
-                <div class="icon">🧠</div>
-                <span>Know Me</span>
-            </div>
-
-            <div class="app" onclick="openApp('game')">
-                <div class="icon">🎮</div>
-                <span>Adventure</span>
-            </div>
-
-            <div class="app" onclick="openApp('messages')">
-                <div class="icon">💌</div>
-                <span>Messages</span>
-            </div>
-
-            <div class="app" onclick="openApp('gallery')">
-                <div class="icon">📸</div>
-                <span>Memories</span>
-            </div>
-
-            <div class="app" onclick="openApp('secret')">
-                <div class="icon">🔐</div>
-                <span>Secret</span>
-            </div>
-
-            <div class="app" onclick="openApp('trash')">
-                <div class="icon">🗑️</div>
-                <span>Trash</span>
-            </div>
-
-        </div>
-
-
-        <!-- APP WINDOW -->
-        <div id="window" class="window">
-
-            <div class="window-header">
-
-                <span id="window-title">
-                    App
+                <span class="site-name">
+                    for you.
                 </span>
 
-                <button onclick="closeApp()">
-                    ✕
+            </div>
+
+
+            <div class="top-center">
+                <span>made with love</span>
+                <span class="tiny-heart">♥</span>
+            </div>
+
+
+            <div class="top-right">
+
+                <span>Saturday</span>
+
+                <span class="separator">•</span>
+
+                <span>9:42 PM</span>
+
+            </div>
+
+        </header>
+
+
+        <!-- Main content -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    A LITTLE PLACE ON THE INTERNET
+                </p>
+
+                <h1>
+                    This is<br>
+                    <span>for you.</span>
+                </h1>
+
+                <p class="hero-description">
+                    I could've just sent you a message.
+                    <br>
+                    But where's the fun in that?
+                </p>
+
+                <button class="enter-button">
+
+                    <span>Enter</span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
                 </button>
 
             </div>
 
-            <div id="window-content" class="window-content">
+
+            <!-- Decorative heart -->
+
+            <div class="hero-decoration">
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+
+                <div class="heart">
+                    ♥
+                </div>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- DOCK -->
-        <div class="taskbar">
+        <!-- Bottom information -->
 
-            <div
-                class="start"
-                onclick="closeApp()"
-                title="Home"
-            >
-                ❤️
+        <footer class="bottom-bar">
+
+            <div class="footer-left">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    somewhere on the internet
+                </span>
+
             </div>
 
-            <div id="clock">
-                00:00
+
+            <div class="footer-center">
+
+                <span>
+                    scroll to explore
+                </span>
+
+                <span class="scroll-line"></span>
+
             </div>
 
-        </div>
 
-    </div>
+            <div class="footer-right">
 
+                <span>
+                    01 / 04
+                </span>
 
-    <script src="script.js"></script>
+            </div>
+
+        </footer>
+
+    </main>
 
 </body>
+
 </html>
