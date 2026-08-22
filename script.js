@@ -233,7 +233,7 @@ function renderDistance() {
   const unit = CONFIG.distanceUnit === "mi" ? "mi" : "km";
 
   document.getElementById("distance-figure").textContent =
-    `${Math.round(value).toLocaleString()} ${unit} apart`;
+    `${Math.round(2427).toLocaleString()} ${unit} apart`;
 }
 
 /* ---------- gallery ---------- */
