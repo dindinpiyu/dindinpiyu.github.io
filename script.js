@@ -5,24 +5,24 @@
 
 const CONFIG = {
   // Names shown in the hero
-  nameA: "Her",
-  nameB: "Him",
+  nameA: "dindin",
+  nameB: "piyu",
 
-  // The date you two got together (YYYY-MM-DDTHH:mm:ss) — used for the day counter
-  startDate: "2023-06-01T00:00:00",
+  // The date you two got together (2025-12-24T21:31:00) — used for the day counter
+  startDate: "2025-12-24T00:00:00",
 
   // The next time you'll physically be together (leave in the future!)
   nextVisit: "2026-12-20T00:00:00",
 
   // Two cities, with IANA timezone names and coordinates (for the clocks + distance)
   cityA: {
-    label: "City A",
-    timeZone: "America/New_York",
-    lat: 40.7128,
-    lon: -74.0060,
+    label: "Noida",
+    timeZone: "Asia/Kolkata",
+    lat: 24.33,
+    lon: 93.68,
   },
   cityB: {
-    label: "City B",
+    label: "Noida",
     timeZone: "Asia/Kolkata",
     lat: 28.6139,
     lon: 77.2090,
