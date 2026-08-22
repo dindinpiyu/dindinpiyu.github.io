@@ -14,12 +14,12 @@ const CONFIG = {
   // Two cities, same timezone — used for weather + distance between you
   timeZone: "Asia/Kolkata",
   cityA: {
-    label: "Lamka",
+    label: "City A",
     lat: 24.33,
     lon: 93.68,
   },
   cityB: {
-    label: "Noida",
+    label: "City B",
     lat: 28.6139,
     lon: 77.2090,
   },
@@ -29,6 +29,9 @@ const CONFIG = {
 
   // Distance units: "km" or "mi"
   distanceUnit: "km",
+
+  // Fixed distance between you two (in the unit above) — set once, doesn't recalculate
+  distanceValue: 2427,
 
   // Gallery photos — add your images to the repo (e.g. in an /images folder) and
   // reference them here. If "src" is left empty, a placeholder card is shown instead.
@@ -216,24 +219,9 @@ function drawMoon(fraction) {
 
 /* ---------- distance ---------- */
 function renderDistance() {
-  const { lat: lat1, lon: lon1 } = CONFIG.cityA;
-  const { lat: lat2, lon: lon2 } = CONFIG.cityB;
-  const R_KM = 6371;
-  const toRad = (deg) => (deg * Math.PI) / 180;
-
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const km = R_KM * c;
-
-  const value = CONFIG.distanceUnit === "mi" ? km * 0.621371 : km;
   const unit = CONFIG.distanceUnit === "mi" ? "mi" : "km";
-
   document.getElementById("distance-figure").textContent =
-    `${Math.round(2427).toLocaleString()} ${unit} apart`;
+    `${CONFIG.distanceValue.toLocaleString()} ${unit} apart`;
 }
 
 /* ---------- gallery ---------- */
