@@ -1,3 +1,4 @@
+
 /* =========================================================================
    CONFIG — this is the only part you need to touch.
    Fill in your own names, dates, cities, and messages below.
@@ -10,10 +11,7 @@ const CONFIG = {
 
   // The date you two got together (2025-12-24T21:31:00) — used for the day counter
   startDate: "2025-12-24T00:00:00",
-
-  // The next time you'll physically be together (leave in the future!)
-  nextVisit: "2026-12-20T00:00:00",
-
+   
   // Two cities, with IANA timezone names and coordinates (for the clocks + distance)
   cityA: {
     label: "Noida",
@@ -26,10 +24,25 @@ const CONFIG = {
     timeZone: "Asia/Kolkata",
     lat: 28.6139,
     lon: 77.2090,
-  },
+
+  // Temperature unit: "celsius" or "fahrenheit"
+  tempUnit: "celsius",
 
   // Distance units: "km" or "mi"
   distanceUnit: "km",
+
+  // Gallery photos — add your images to the repo (e.g. in an /images folder) and
+  // reference them here. If "src" is left empty, a placeholder card is shown instead.
+  gallery: [
+    { src: "", caption: "add your photo here" },
+    { src: "", caption: "add your photo here" },
+    { src: "", caption: "add your photo here" },
+    { src: "", caption: "add your photo here" },
+  ],
+
+  // Spotify playlist embed. Open your playlist in Spotify -> Share -> Embed playlist,
+  // then paste just the src URL from the iframe here (looks like the example below).
+  spotifyEmbedUrl: "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator",
 
   // Timeline of memories — add as many as you like, in order
   timeline: [
@@ -69,7 +82,13 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDistance();
   renderTimeline();
   renderNotes();
+  renderGallery();
+  renderPlaylist();
   setupHugButton();
+  fetchWeather("a", CONFIG.cityA);
+  fetchWeather("b", CONFIG.cityB);
+  setInterval(() => fetchWeather("a", CONFIG.cityA), 10 * 60 * 1000);
+  setInterval(() => fetchWeather("b", CONFIG.cityB), 10 * 60 * 1000);
 
   tick();
   setInterval(tick, 1000);
@@ -77,9 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function tick() {
   updateDayCounter();
-  updateClocks();
   updateMoon();
-  updateCountdown();
 }
 
 /* ---------- day counter ---------- */
@@ -91,18 +108,55 @@ function updateDayCounter() {
   document.getElementById("days-together").textContent = Math.max(days, 0).toLocaleString();
 }
 
-/* ---------- clocks ---------- */
-function updateClocks() {
-  const now = new Date();
-  const fmt = (tz) =>
-    new Intl.DateTimeFormat("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: tz,
-    }).format(now);
+/* ---------- weather ---------- */
+/* Uses Open-Meteo (no API key needed, works from static sites). */
+const WEATHER_CODES = {
+  0: { icon: "☀️", text: "clear sky" },
+  1: { icon: "🌤️", text: "mostly clear" },
+  2: { icon: "⛅", text: "partly cloudy" },
+  3: { icon: "☁️", text: "overcast" },
+  45: { icon: "🌫️", text: "foggy" },
+  48: { icon: "🌫️", text: "foggy" },
+  51: { icon: "🌦️", text: "light drizzle" },
+  53: { icon: "🌦️", text: "drizzle" },
+  55: { icon: "🌧️", text: "heavy drizzle" },
+  61: { icon: "🌧️", text: "light rain" },
+  63: { icon: "🌧️", text: "rain" },
+  65: { icon: "🌧️", text: "heavy rain" },
+  71: { icon: "🌨️", text: "light snow" },
+  73: { icon: "🌨️", text: "snow" },
+  75: { icon: "❄️", text: "heavy snow" },
+  80: { icon: "🌦️", text: "rain showers" },
+  81: { icon: "🌧️", text: "rain showers" },
+  82: { icon: "⛈️", text: "violent showers" },
+  95: { icon: "⛈️", text: "thunderstorm" },
+  96: { icon: "⛈️", text: "thunderstorm, hail" },
+  99: { icon: "⛈️", text: "thunderstorm, hail" },
+};
 
-  document.getElementById("time-a").textContent = fmt(CONFIG.cityA.timeZone);
-  document.getElementById("time-b").textContent = fmt(CONFIG.cityB.timeZone);
+async function fetchWeather(key, city) {
+  const iconEl = document.getElementById(`weather-icon-${key}`);
+  const tempEl = document.getElementById(`weather-temp-${key}`);
+  const conditionEl = document.getElementById(`weather-condition-${key}`);
+
+  try {
+    const unitParam = CONFIG.tempUnit === "fahrenheit" ? "&temperature_unit=fahrenheit" : "";
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true${unitParam}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("weather request failed");
+    const data = await res.json();
+    const current = data.current_weather;
+    const info = WEATHER_CODES[current.weathercode] || { icon: "🌡️", text: "unknown" };
+    const unitSymbol = CONFIG.tempUnit === "fahrenheit" ? "°F" : "°C";
+
+    iconEl.textContent = info.icon;
+    tempEl.textContent = `${Math.round(current.temperature)}${unitSymbol}`;
+    conditionEl.textContent = info.text;
+  } catch (err) {
+    iconEl.textContent = "—";
+    tempEl.textContent = "";
+    conditionEl.textContent = "weather unavailable";
+  }
 }
 
 /* ---------- moon phase ----------
@@ -183,48 +237,48 @@ function renderDistance() {
     `${Math.round(value).toLocaleString()} ${unit} apart`;
 }
 
-/* ---------- countdown ---------- */
-function updateCountdown() {
-  const target = new Date(CONFIG.nextVisit).getTime();
-  const now = Date.now();
-  const diff = target - now;
+/* ---------- gallery ---------- */
+function renderGallery() {
+  const grid = document.getElementById("gallery-grid");
+  grid.innerHTML = "";
 
-  const els = {
-    days: document.getElementById("cd-days"),
-    hours: document.getElementById("cd-hours"),
-    mins: document.getElementById("cd-mins"),
-    secs: document.getElementById("cd-secs"),
-  };
+  CONFIG.gallery.forEach((item) => {
+    const el = document.createElement("div");
+    el.className = "gallery-item";
 
-  if (diff <= 0) {
-    els.days.textContent = "00";
-    els.hours.textContent = "00";
-    els.mins.textContent = "00";
-    els.secs.textContent = "00";
-    document.getElementById("countdown-title").textContent = "You made it";
+    if (item.src) {
+      el.innerHTML = `
+        <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.caption || "")}">
+        ${item.caption ? `<p class="gallery-item__caption">${escapeHtml(item.caption)}</p>` : ""}
+      `;
+    } else {
+      el.innerHTML = `<p class="gallery-item__placeholder">${escapeHtml(item.caption || "add a photo")}</p>`;
+    }
+
+    grid.appendChild(el);
+  });
+}
+
+/* ---------- playlist ---------- */
+function renderPlaylist() {
+  const container = document.getElementById("playlist-embed");
+
+  if (!CONFIG.spotifyEmbedUrl) {
+    container.innerHTML = `<p class="playlist-embed__placeholder">add a spotifyEmbedUrl in the config to show your playlist here</p>`;
     return;
   }
 
-  const pad = (n) => String(n).padStart(2, "0");
-  const totalSeconds = Math.floor(diff / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const mins = Math.floor((totalSeconds % 3600) / 60);
-  const secs = totalSeconds % 60;
-
-  els.days.textContent = pad(days);
-  els.hours.textContent = pad(hours);
-  els.mins.textContent = pad(mins);
-  els.secs.textContent = pad(secs);
-
-  document.getElementById("countdown-date").textContent = new Date(
-    CONFIG.nextVisit
-  ).toLocaleDateString(undefined, {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  container.innerHTML = `
+    <iframe
+      src="${escapeHtml(CONFIG.spotifyEmbedUrl)}"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  `;
 }
 
 /* ---------- timeline ---------- */
