@@ -1,4 +1,3 @@
-
 /* =========================================================================
    CONFIG — this is the only part you need to touch.
    Fill in your own names, dates, cities, and messages below.
@@ -9,21 +8,21 @@ const CONFIG = {
   nameA: "dindin",
   nameB: "piyu",
 
-  // The date you two got together (2025-12-24T21:31:00) — used for the day counter
+  // The date you two got together (YYYY-MM-DDTHH:mm:ss) — used for the day counter
   startDate: "2025-12-24T00:00:00",
-   
-  // Two cities, with IANA timezone names and coordinates (for the clocks + distance)
+
+  // Two cities, same timezone — used for weather + distance between you
+  timeZone: "Asia/Kolkata",
   cityA: {
-    label: "Noida",
-    timeZone: "Asia/Kolkata",
+    label: "Lamka",
     lat: 24.33,
     lon: 93.68,
   },
   cityB: {
     label: "Noida",
-    timeZone: "Asia/Kolkata",
     lat: 28.6139,
     lon: 77.2090,
+  },
 
   // Temperature unit: "celsius" or "fahrenheit"
   tempUnit: "celsius",
