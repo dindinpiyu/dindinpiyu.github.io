@@ -14,12 +14,12 @@ const CONFIG = {
   // Two cities, same timezone — used for weather + distance between you
   timeZone: "Asia/Kolkata",
   cityA: {
-    label: "City A",
+    label: "Lamka",
     lat: 24.33,
     lon: 93.68,
   },
   cityB: {
-    label: "City B",
+    label: "Noida",
     lat: 28.6139,
     lon: 77.2090,
   },
