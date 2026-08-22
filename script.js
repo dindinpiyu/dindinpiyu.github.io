@@ -20,8 +20,8 @@ const CONFIG = {
   },
   cityB: {
     label: "Noida",
-    lat: 28.6139,
-    lon: 77.2090,
+    lat: 28.5355,
+    lon: 77.3910,
   },
 
   // Temperature unit: "celsius" or "fahrenheit"
@@ -111,7 +111,9 @@ function updateDayCounter() {
 }
 
 /* ---------- weather ---------- */
-/* Uses Open-Meteo (no API key needed, works from static sites). */
+/* Uses Open-Meteo (no API key needed, works from static sites).
+   We pull weather_code AND cloud_cover, then use cloud_cover to refine
+   "clear vs cloudy" calls — weather_code alone is too coarse for smaller towns. */
 const WEATHER_CODES = {
   0: { icon: "☀️", text: "clear sky" },
   1: { icon: "🌤️", text: "mostly clear" },
@@ -136,6 +138,21 @@ const WEATHER_CODES = {
   99: { icon: "⛈️", text: "thunderstorm, hail" },
 };
 
+// Codes 0-3 are the "clear to overcast" family where weather_code alone is
+// unreliable — for these, override using the actual cloud_cover percentage.
+const CLEAR_TO_OVERCAST_CODES = new Set([0, 1, 2, 3]);
+
+function refineByCloudCover(weatherCode, cloudCover) {
+  if (!CLEAR_TO_OVERCAST_CODES.has(weatherCode) || typeof cloudCover !== "number") {
+    return WEATHER_CODES[weatherCode] || { icon: "🌡️", text: "unknown" };
+  }
+
+  if (cloudCover < 15) return { icon: "☀️", text: "clear sky" };
+  if (cloudCover < 40) return { icon: "🌤️", text: "mostly clear" };
+  if (cloudCover < 70) return { icon: "⛅", text: "partly cloudy" };
+  return { icon: "☁️", text: "cloudy" };
+}
+
 async function fetchWeather(key, city) {
   const iconEl = document.getElementById(`weather-icon-${key}`);
   const tempEl = document.getElementById(`weather-temp-${key}`);
@@ -143,18 +160,19 @@ async function fetchWeather(key, city) {
 
   try {
     const unitParam = CONFIG.tempUnit === "fahrenheit" ? "&temperature_unit=fahrenheit" : "";
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true${unitParam}`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code,cloud_cover${unitParam}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("weather request failed");
     const data = await res.json();
-    const current = data.current_weather;
-    const info = WEATHER_CODES[current.weathercode] || { icon: "🌡️", text: "unknown" };
+    const current = data.current;
+    const info = refineByCloudCover(current.weather_code, current.cloud_cover);
     const unitSymbol = CONFIG.tempUnit === "fahrenheit" ? "°F" : "°C";
 
     iconEl.textContent = info.icon;
-    tempEl.textContent = `${Math.round(current.temperature)}${unitSymbol}`;
+    tempEl.textContent = `${Math.round(current.temperature_2m)}${unitSymbol}`;
     conditionEl.textContent = info.text;
   } catch (err) {
+    console.error("Weather fetch failed:", err);
     iconEl.textContent = "—";
     tempEl.textContent = "";
     conditionEl.textContent = "weather unavailable";
