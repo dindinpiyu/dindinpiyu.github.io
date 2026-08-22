@@ -13,13 +13,36 @@
 
     <div class="desktop">
 
-        <!-- Desktop title -->
-        <div class="welcome">
-            <h1>Her World ❤️</h1>
-            <p>A little place I made just for you.</p>
+        <!-- TOP BAR -->
+        <div class="topbar">
+
+            <div class="brand">
+                ❤️ Her World
+                <span>— just for you</span>
+            </div>
+
+            <div class="top-right">
+                <span>♡</span>
+                <span id="date">Loading...</span>
+                <span id="top-clock">00:00</span>
+            </div>
+
         </div>
 
-        <!-- Apps -->
+
+        <!-- WELCOME -->
+        <div class="welcome">
+
+            <h1>Her World</h1>
+
+            <p>
+                A little corner of the internet made just for you ❤️
+            </p>
+
+        </div>
+
+
+        <!-- APPS -->
         <div class="apps">
 
             <div class="app" onclick="openApp('quiz')">
@@ -54,13 +77,20 @@
 
         </div>
 
-        <!-- Window -->
+
+        <!-- APP WINDOW -->
         <div id="window" class="window">
 
             <div class="window-header">
-                <span id="window-title">App</span>
 
-                <button onclick="closeApp()">✕</button>
+                <span id="window-title">
+                    App
+                </span>
+
+                <button onclick="closeApp()">
+                    ✕
+                </button>
+
             </div>
 
             <div id="window-content" class="window-content">
@@ -68,20 +98,26 @@
 
         </div>
 
-        <!-- Taskbar -->
+
+        <!-- DOCK -->
         <div class="taskbar">
 
-            <div class="start">
+            <div
+                class="start"
+                onclick="closeApp()"
+                title="Home"
+            >
                 ❤️
             </div>
 
             <div id="clock">
-                12:00
+                00:00
             </div>
 
         </div>
 
     </div>
+
 
     <script src="script.js"></script>
 
