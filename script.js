@@ -36,10 +36,10 @@ const CONFIG = {
   // Gallery photos — add your images to the repo (e.g. in an /images folder) and
   // reference them here. If "src" is left empty, a placeholder card is shown instead.
   gallery: [
-    { src: "1.jpeg", caption: "add your photo here" },
-    { src: "2.png", caption: "add your photo here" },
-    { src: "3.webp", caption: "add your photo here" },
-    { src: "4.webp", caption: "add your photo here" },
+    { src: "1.jpeg", caption: "" },
+    { src: "2.png", caption: "" },
+    { src: "3.webp", caption: "" },
+    { src: "4.webp", caption: "" },
   ],
 
   // Spotify playlist embed. Open your playlist in Spotify -> Share -> Embed playlist,
