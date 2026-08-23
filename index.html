@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I love you soo much</title>
+<title>Same Sky</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -13,9 +13,9 @@
 <div class="stars" id="stars"></div>
 
 <header class="hero">
-  <p class="eyebrow">a small site to show my bigbig love for you</p>
+  <p class="eyebrow">a small site for a big distance</p>
   <h1 class="title"><span id="name-a">Her</span> <span class="amp">&amp;</span> <span id="name-b">Him</span></h1>
-  <p class="subtitle">alag aasman, but one moon</p>
+  <p class="subtitle">two skies, one moon</p>
 
   <div class="day-counter">
     <span class="day-counter__number" id="days-together">0</span>
@@ -27,7 +27,7 @@
 
   <section class="sky-panel" aria-label="Same sky, right now">
     <div class="city-card" id="city-a">
-      <p class="city-card__label">dindin's sky</p>
+      <p class="city-card__label">her city</p>
       <p class="city-card__place" id="place-a">City A</p>
       <p class="city-card__weather" id="weather-a">
         <span class="weather-icon" id="weather-icon-a">--</span>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="city-card" id="city-b">
-      <p class="city-card__label">piyu's sky</p>
+      <p class="city-card__label">his city</p>
       <p class="city-card__place" id="place-b">City B</p>
       <p class="city-card__weather" id="weather-b">
         <span class="weather-icon" id="weather-icon-b">--</span>
@@ -63,17 +63,94 @@
   </section>
 
   <section class="gallery-section">
-    <p class="section-eyebrow">fotozz</p>
+    <p class="section-eyebrow">proof it's real</p>
     <h2 class="section-title">Us</h2>
     <div class="gallery-grid" id="gallery-grid"></div>
   </section>
 
   <section class="playlist-section">
-    <p class="section-eyebrow"></p>
-    <h2 class="section-title">Our playlist</h2>
+    <p class="section-eyebrow">what we'd be listening to</p>
+    <h2 class="section-title">The playlist</h2>
     <div class="playlist-embed" id="playlist-embed"></div>
   </section>
 
+  <section class="bucket-section" aria-label="Our bucket list">
+    <p class="section-eyebrow">things we haven't done yet... but will</p>
+    <h2 class="section-title">Our Bucket List</h2>
+    <p class="bucket-subtitle">A collection of things we're going to do together someday.</p>
+    <p class="bucket-subtitle bucket-subtitle--small">Some are plans. Some are dreams. All of them are ours.</p>
+
+    <div class="bucket-progress">
+      <p class="bucket-progress__label" id="bucket-progress-label">Our little list</p>
+      <div class="bucket-progress__bar">
+        <div class="bucket-progress__fill" id="bucket-progress-fill"></div>
+      </div>
+      <p class="bucket-progress__percent" id="bucket-progress-percent"></p>
+    </div>
+
+    <div class="bucket-filters" id="bucket-filters" role="group" aria-label="Filter by category"></div>
+
+    <p class="bucket-all-done" id="bucket-all-done" style="display:none">Wait... we actually did everything. 🥹</p>
+
+    <div class="bucket-grid" id="bucket-grid"></div>
+
+    <button class="btn-ghost bucket-random-btn" id="bucket-random-btn">pick something for us</button>
+    <p class="bucket-random-message" id="bucket-random-message" aria-live="polite"></p>
+  </section>
+
+  <section class="letters-section" aria-label="One year letters">
+    <div id="letters-locked">
+      <p class="section-eyebrow">a surprise waiting for us</p>
+      <h2 class="section-title">Letters from One Year</h2>
+      <p class="letters-copy">We wrote something for each other.<br>But you have to wait until we make it to one year.</p>
+      <p class="letters-unlock-date" id="letters-unlock-date">Unlocks December 24, 2026</p>
+
+      <div class="letters-countdown" id="letters-countdown">
+        <div class="letters-countdown__unit"><span id="letters-cd-days">00</span><label>days</label></div>
+        <div class="letters-countdown__unit"><span id="letters-cd-hours">00</span><label>hours</label></div>
+        <div class="letters-countdown__unit"><span id="letters-cd-mins">00</span><label>minutes</label></div>
+        <div class="letters-countdown__unit"><span id="letters-cd-secs">00</span><label>seconds</label></div>
+      </div>
+
+      <div class="envelope-row">
+        <button class="envelope envelope--locked" id="envelope-locked-a" aria-label="A letter from dindin, locked">
+          <span class="envelope__icon">🔒</span>
+          <span class="envelope__title">A letter from dindin</span>
+          <span class="envelope__note">Opens when we reach one year</span>
+        </button>
+        <button class="envelope envelope--locked" id="envelope-locked-b" aria-label="A letter from piyu, locked">
+          <span class="envelope__icon">🔒</span>
+          <span class="envelope__title">A letter from piyu</span>
+          <span class="envelope__note">Opens when we reach one year</span>
+        </button>
+      </div>
+      <p class="letters-shake-message" id="letters-shake-message" aria-live="polite"></p>
+    </div>
+
+    <div id="letters-unlocked" style="display:none">
+      <p class="section-eyebrow">it happened</p>
+      <h2 class="section-title">We made it to one year. ❤️</h2>
+      <p class="letters-copy">Two letters were waiting here all along.</p>
+
+      <div class="envelope-row">
+        <button class="envelope envelope--unlocked" id="envelope-unlocked-a" aria-label="Open the letter for dindin">
+          <span class="envelope__icon">💌</span>
+          <span class="envelope__title">For dindin</span>
+        </button>
+        <button class="envelope envelope--unlocked" id="envelope-unlocked-b" aria-label="Open the letter for piyu">
+          <span class="envelope__icon">💌</span>
+          <span class="envelope__title">For piyu</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="letter-overlay" id="letter-overlay">
+      <div class="letter-paper" id="letter-paper">
+        <button class="letter-close" id="letter-close" aria-label="Close letter">×</button>
+        <p class="letter-text" id="letter-text"></p>
+      </div>
+    </div>
+  </section>
 
   <section class="notes-section">
     <p class="section-eyebrow">tap one</p>
@@ -83,14 +160,20 @@
 
   <section class="hug-section">
     <p class="section-eyebrow">for right now</p>
-    <button class="hug-button" id="hug-button">send me kawi and chups</button>
+    <button class="hug-button" id="hug-button">send a hug across the distance</button>
     <p class="hug-message" id="hug-message" aria-live="polite"></p>
+  </section>
+
+  <section class="game-section">
+    <p class="section-eyebrow">one more thing</p>
+    <h2 class="section-title">I made you something</h2>
+    <a class="game-button" href="her-game.html">play it</a>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <p>made with all the love and one very specific person in mind.</p>
+  <p>made with too much time and one very specific person in mind.</p>
 </footer>
 
 <script src="script.js"></script>
