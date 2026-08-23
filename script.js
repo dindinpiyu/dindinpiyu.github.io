@@ -46,13 +46,6 @@ const CONFIG = {
   // then paste just the src URL from the iframe here (looks like the example below).
   spotifyEmbedUrl: "https://open.spotify.com/playlist/7sQgpDEQvHHD1Mv849huGC",
 
-  // Timeline of memories — add as many as you like, in order
-  timeline: [
-    { date: "June 2023", title: "The first message", text: "You still have the screenshot of this somewhere." },
-    { date: "August 2023", title: "First video call", text: "Four hours that felt like twenty minutes." },
-    { date: "March 2024", title: "First visit", text: "Airport arrivals hall, running the last few steps." },
-    { date: "Today", title: "Still going", text: "One more day added to the counter above." },
-  ],
 
   // Flip cards — front is the prompt, back is the reveal
   notes: [
@@ -82,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("place-b").textContent = CONFIG.cityB.label;
 
   renderDistance();
-  renderTimeline();
   renderNotes();
   renderGallery();
   renderPlaylist();
@@ -299,23 +291,6 @@ function renderPlaylist() {
       loading="lazy">
     </iframe>
   `;
-}
-
-/* ---------- timeline ---------- */
-function renderTimeline() {
-  const container = document.getElementById("timeline");
-  container.innerHTML = "";
-
-  CONFIG.timeline.forEach((item) => {
-    const el = document.createElement("div");
-    el.className = "timeline-item";
-    el.innerHTML = `
-      <p class="timeline-item__date">${escapeHtml(item.date)}</p>
-      <p class="timeline-item__title">${escapeHtml(item.title)}</p>
-      <p class="timeline-item__text">${escapeHtml(item.text)}</p>
-    `;
-    container.appendChild(el);
-  });
 }
 
 /* ---------- flip note cards ---------- */
