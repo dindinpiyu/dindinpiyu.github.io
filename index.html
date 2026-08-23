@@ -74,30 +74,6 @@
     <div class="playlist-embed" id="playlist-embed"></div>
   </section>
 
-  <section class="bucket-section" aria-label="Our bucket list">
-    <p class="section-eyebrow">things we haven't done yet... but will</p>
-    <h2 class="section-title">Our Bucket List</h2>
-    <p class="bucket-subtitle">A collection of things we're going to do together someday.</p>
-    <p class="bucket-subtitle bucket-subtitle--small">Some are plans. Some are dreams. All of them are ours.</p>
-
-    <div class="bucket-progress">
-      <p class="bucket-progress__label" id="bucket-progress-label">Our little list</p>
-      <div class="bucket-progress__bar">
-        <div class="bucket-progress__fill" id="bucket-progress-fill"></div>
-      </div>
-      <p class="bucket-progress__percent" id="bucket-progress-percent"></p>
-    </div>
-
-    <div class="bucket-filters" id="bucket-filters" role="group" aria-label="Filter by category"></div>
-
-    <p class="bucket-all-done" id="bucket-all-done" style="display:none">Wait... we actually did everything. 🥹</p>
-
-    <div class="bucket-checklist" id="bucket-grid"></div>
-
-    <button class="btn-ghost bucket-random-btn" id="bucket-random-btn">pick something for us</button>
-    <p class="bucket-random-message" id="bucket-random-message" aria-live="polite"></p>
-  </section>
-
   <section class="letters-section" aria-label="One year letters">
     <div id="letters-locked">
       <p class="section-eyebrow">a surprise waiting for us</p>
@@ -118,12 +94,14 @@
           <span class="envelope__title">A letter from dindin</span>
           <span class="envelope__note">Opens when we reach one year</span>
         </button>
+
         <button class="envelope envelope--locked" id="envelope-locked-b" aria-label="A letter from piyu, locked">
           <span class="envelope__icon">🔒</span>
           <span class="envelope__title">A letter from piyu</span>
           <span class="envelope__note">Opens when we reach one year</span>
         </button>
       </div>
+
       <p class="letters-shake-message" id="letters-shake-message" aria-live="polite"></p>
     </div>
 
@@ -137,6 +115,7 @@
           <span class="envelope__icon">💌</span>
           <span class="envelope__title">For dindin</span>
         </button>
+
         <button class="envelope envelope--unlocked" id="envelope-unlocked-b" aria-label="Open the letter for piyu">
           <span class="envelope__icon">💌</span>
           <span class="envelope__title">For piyu</span>
@@ -152,6 +131,27 @@
     </div>
   </section>
 
+  <section class="bucket-section" aria-label="Our bucket list">
+    <p class="section-eyebrow">things we haven't done yet... but will</p>
+    <h2 class="section-title">Our Bucket List</h2>
+    <p class="bucket-subtitle">A collection of things we're going to do together someday.</p>
+    <p class="bucket-subtitle bucket-subtitle--small">Some are plans. Some are dreams. All of them are ours.</p>
+
+    <div class="bucket-progress">
+      <p class="bucket-progress__label" id="bucket-progress-label">Our little list</p>
+      <div class="bucket-progress__bar">
+        <div class="bucket-progress__fill" id="bucket-progress-fill"></div>
+      </div>
+      <p class="bucket-progress__percent" id="bucket-progress-percent"></p>
+    </div>
+
+    <div class="bucket-filters" id="bucket-filters" role="group" aria-label="Filter by category"></div>
+
+    <p class="bucket-all-done" id="bucket-all-done" style="display:none">Wait... we actually did everything. 🥹</p>
+
+    <div class="bucket-checklist" id="bucket-grid"></div>
+  </section>
+
   <section class="notes-section">
     <p class="section-eyebrow">tap one</p>
     <h2 class="section-title">Small reasons</h2>
@@ -162,12 +162,6 @@
     <p class="section-eyebrow">for right now</p>
     <button class="hug-button" id="hug-button">send a hug across the distance</button>
     <p class="hug-message" id="hug-message" aria-live="polite"></p>
-  </section>
-
-  <section class="game-section">
-    <p class="section-eyebrow">one more thing</p>
-    <h2 class="section-title">I made you something</h2>
-    <a class="game-button" href="her-game.html">play it</a>
   </section>
 
 </main>
