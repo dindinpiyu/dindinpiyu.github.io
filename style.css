@@ -31,10 +31,13 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
-/* ---------- starfield ---------- */
 .stars {
   position: fixed;
   inset: 0;
@@ -58,9 +61,11 @@ body {
   to { opacity: 1; }
 }
 
-main, header, footer { position: relative; z-index: 1; }
+main, header, footer {
+  position: relative;
+  z-index: 1;
+}
 
-/* ---------- hero ---------- */
 .hero {
   text-align: center;
   padding: 5.5rem 1.5rem 3rem;
@@ -120,7 +125,6 @@ main, header, footer { position: relative; z-index: 1; }
   text-transform: uppercase;
 }
 
-/* ---------- sky panel ---------- */
 .sky-panel {
   max-width: 920px;
   margin: 2rem auto 5rem;
@@ -225,7 +229,6 @@ main, header, footer { position: relative; z-index: 1; }
   margin: 0;
 }
 
-/* ---------- section shared ---------- */
 section {
   max-width: 720px;
   margin: 0 auto;
@@ -240,7 +243,6 @@ section {
   margin: 0 0 2rem;
 }
 
-/* ---------- gallery ---------- */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -289,7 +291,6 @@ section {
   text-align: left;
 }
 
-/* ---------- playlist ---------- */
 .playlist-embed {
   border-radius: 16px;
   overflow: hidden;
@@ -312,7 +313,6 @@ section {
   font-family: var(--font-display);
 }
 
-/* ---------- notes / flip cards ---------- */
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -364,7 +364,6 @@ section {
   font-weight: 500;
 }
 
-/* ---------- hug button ---------- */
 .hug-button {
   font-family: var(--font-body);
   font-weight: 600;
@@ -396,30 +395,6 @@ section {
   min-height: 1.5em;
 }
 
-/* ---------- game link ---------- */
-.game-button {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--sky-deeper);
-  background: var(--rose);
-  text-decoration: none;
-  border-radius: 999px;
-  padding: 0.9rem 1.8rem;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.game-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(168, 112, 63, 0.3);
-}
-
-.game-button:active {
-  transform: translateY(0);
-}
-
-/* ---------- bucket list ---------- */
 .bucket-section {
   max-width: 920px;
 }
@@ -554,7 +529,9 @@ section {
   font-weight: 700;
 }
 
-.bucket-check:active { transform: scale(0.9); }
+.bucket-check:active {
+  transform: scale(0.9);
+}
 
 .bucket-row__text {
   flex: 1;
@@ -572,12 +549,6 @@ section {
   text-decoration: line-through;
   text-decoration-color: rgba(242, 235, 224, 0.4);
   color: var(--cream-dim);
-}
-
-.bucket-row__desc {
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  margin: 0.2rem 0 0;
 }
 
 .bucket-row__meta {
@@ -605,28 +576,6 @@ section {
   margin: 1rem 0 0;
 }
 
-.btn-ghost {
-  display: inline-block;
-  margin-top: 1.8rem;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: var(--cream-dim);
-  background: transparent;
-  border: 1px solid rgba(242, 235, 224, 0.2);
-  border-radius: 999px;
-  padding: 0.6rem 1.2rem;
-  cursor: pointer;
-}
-
-.bucket-random-message {
-  margin-top: 0.6rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  color: var(--cream-dim);
-  min-height: 1.4em;
-}
-
-/* ---------- one year letters ---------- */
 .letters-section {
   max-width: 640px;
 }
@@ -700,17 +649,23 @@ section {
   transition: transform 0.15s ease;
 }
 
-.envelope:active { transform: scale(0.97); }
+.envelope:active {
+  transform: scale(0.97);
+}
 
 .envelope--unlocked {
   border-color: var(--gold);
 }
 
 @media (hover: hover) {
-  .envelope--unlocked:hover { transform: translateY(-3px); }
+  .envelope--unlocked:hover {
+    transform: translateY(-3px);
+  }
 }
 
-.envelope__icon { font-size: 1.8rem; }
+.envelope__icon {
+  font-size: 1.8rem;
+}
 
 .envelope__title {
   font-family: var(--font-display);
@@ -803,9 +758,10 @@ section {
   opacity: 0.6;
 }
 
-.letter-close:hover { opacity: 1; }
+.letter-close:hover {
+  opacity: 1;
+}
 
-/* ---------- footer ---------- */
 .site-footer {
   text-align: center;
   padding: 3rem 1.5rem 4rem;
@@ -813,17 +769,16 @@ section {
   font-size: 0.8rem;
 }
 
-/* ---------- responsive ---------- */
 @media (max-width: 640px) {
   .sky-panel {
     grid-template-columns: 1fr;
   }
+
   .moon-column {
     order: -1;
   }
 }
 
-/* keyboard focus visibility */
 a:focus-visible, button:focus-visible, .note-card:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
