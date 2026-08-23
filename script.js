@@ -37,7 +37,7 @@ const CONFIG = {
   // reference them here. If "src" is left empty, a placeholder card is shown instead.
   gallery: [
     { src: "1.jpeg", caption: "" },
-    { src: "2.png", caption: "" },
+    { src: "2.webp", caption: "" },
     { src: "3.webp", caption: "" },
     { src: "4.webp", caption: "" },
   ],
