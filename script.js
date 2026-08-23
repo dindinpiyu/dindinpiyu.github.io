@@ -83,305 +83,49 @@ PASTE PIYU'S LETTER HERE
 /* =========================================================================
    OUR BUCKET LIST — add, remove, or edit items freely.
    Each item needs a unique "id" (used to remember completion in localStorage).
-   Optional fields: date, location, photo, completedNote.
+   Optional fields: date, location, completedNote.
    ========================================================================= */
 const BUCKET_LIST = [
   {
-    id: "visit-museum",
-    title: "Visit a museum together",
-    description: "Wander around, look at beautiful things, and pretend we understand the really confusing art.",
-    icon: "🏛️",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "visit-aquarium",
-    title: "Visit an aquarium",
-    description: "Go see all the fishies together.",
-    icon: "🐠",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "red-string-tattoo",
-    title: "Get the red string tattoo",
-    description: "Make the red string theory a little more permanent.",
-    icon: "🧵",
-    category: "us",
-    completed: false
-  },
-  {
-    id: "escape-room",
-    title: "Play an escape room",
-    description: "Get locked in a room together and see if we can actually escape.",
-    icon: "🔐",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "build-nest",
-    title: "Make a nest and live in it",
-    description: "Build the coziest little nest imaginable and simply live there.",
-    icon: "🪹",
-    category: "future",
-    completed: false
-  },
-  {
-    id: "northern-lights",
-    title: "Watch the northern lights together",
-    description: "Stand somewhere freezing, look up at the sky, and watch the aurora together.",
-    icon: "🌌",
-    category: "travel",
-    completed: false
-  },
-  {
-    id: "badminton",
-    title: "Play badminton together",
-    description: "A totally serious and completely competitive badminton match.",
-    icon: "🏸",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "watch-sunset",
-    title: "Watch the sunset together",
-    description: "Find somewhere pretty, sit together, and watch the sky change colors.",
+    id: "sunrise",
+    title: "Watch a sunrise together",
+    description: "Wake up ridiculously early and watch the sunrise together.",
     icon: "🌅",
-    category: "little-things",
-    completed: false
+    category: "experience",
+    completed: false,
   },
   {
-    id: "play-chess",
-    title: "Play chess together",
-    description: "A peaceful little game that will definitely not turn competitive.",
-    icon: "♟️",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "movie-night",
-    title: "Watch a movie together",
-    description: "Pick a movie, get comfortable, and spend the whole evening together.",
-    icon: "🎬",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "ghost-hunting",
-    title: "Go ghost hunting",
-    description: "Explore an abandoned place together and immediately regret every decision.",
-    icon: "👻",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "skydiving",
-    title: "Go skydiving together",
-    description: "Jump out of a perfectly functional airplane together. For some reason.",
-    icon: "🪂",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "big-telescope",
-    title: "Get a big telescope",
-    description: "Get a ridiculously big telescope and spend nights looking at the sky together.",
-    icon: "🔭",
-    category: "future",
-    completed: false
-  },
-  {
-    id: "mountain-camping",
-    title: "Go camping in the mountains",
-    description: "Camp somewhere beautiful, get cozy, and wake up surrounded by mountains.",
-    icon: "🏕️",
-    category: "travel",
-    completed: false
-  },
-  {
-    id: "matching-tattoos",
-    title: "Get matching tattoos",
-    description: "Get something permanent that reminds us of each other.",
-    icon: "🖋️",
-    category: "us",
-    completed: false
-  },
-  {
-    id: "crochet-together",
-    title: "Crochet something together",
-    description: "Make something with our own hands, even if it turns out completely wonky.",
-    icon: "🧶",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "photobooth",
-    title: "Take pictures in a photobooth",
-    description: "Get a strip of ridiculous little pictures together and keep it forever.",
+    id: "first-picture",
+    title: "Take our first proper picture together",
+    description: "One picture where we're finally standing next to each other.",
     icon: "📸",
-    category: "memories",
-    completed: false
+    category: "memory",
+    completed: false,
   },
   {
-    id: "clay-making",
-    title: "Make something out of clay",
-    description: "Make little clay creations together and see whose turns out worse.",
-    icon: "🏺",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "live-switzerland",
-    title: "Live in Switzerland",
-    description: "Wake up somewhere beautiful and call Switzerland home, even if only for a while.",
-    icon: "🇨🇭",
-    category: "future",
-    completed: false
-  },
-  {
-    id: "meteor-shower",
-    title: "Watch a meteor shower together",
-    description: "Lie under the night sky and make wishes every time a meteor passes.",
-    icon: "☄️",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "travel-together",
-    title: "Travel together",
-    description: "Go somewhere neither of us has been and make a whole collection of memories.",
+    id: "first-trip",
+    title: "Go on our first trip",
+    description: "Pick a place and disappear together for a few days.",
     icon: "✈️",
     category: "travel",
-    completed: false
+    completed: false,
   },
   {
-    id: "cook-together",
-    title: "Cook something together",
-    description: "Pick something we've never made before and figure it out together.",
-    icon: "🍳",
+    id: "favorite-food",
+    title: "Eat at a place we've always wanted to try",
+    description: "No excuses. We're ordering everything.",
+    icon: "🍜",
+    category: "food",
+    completed: false,
+  },
+  {
+    id: "stargazing",
+    title: "Go stargazing together",
+    description: "Find somewhere with almost no city lights and just look up.",
+    icon: "🌌",
     category: "little-things",
-    completed: false
+    completed: false,
   },
-  {
-    id: "buy-caravan",
-    title: "Buy a caravan",
-    description: "Get our own little home on wheels and go wherever we feel like going.",
-    icon: "🚐",
-    category: "future",
-    completed: false
-  },
-  {
-    id: "sprite-challenge",
-    title: "Try not burping after drinking a bottle of Sprite",
-    description: "One bottle. No burping. This is apparently an important life goal.",
-    icon: "🥤",
-    category: "silly",
-    completed: false
-  },
-  {
-    id: "the-kiss",
-    title: "See The Kiss and recreate it",
-    description: "Go see Klimt's The Kiss in a museum and recreate the painting together.",
-    icon: "💋",
-    category: "memories",
-    completed: false
-  },
-  {
-    id: "libraries",
-    title: "Visit libraries together",
-    description: "Explore beautiful libraries, get lost between the shelves, and read together.",
-    icon: "📚",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "karaoke",
-    title: "Go karaoke together",
-    description: "Sing our hearts out, regardless of whether either of us can actually sing.",
-    icon: "🎤",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "matching-grillz",
-    title: "Get matching grillz",
-    description: "Because apparently matching tattoos weren't enough.",
-    icon: "💎",
-    category: "us",
-    completed: false
-  },
-  {
-    id: "late-night-drives",
-    title: "Go on late-night drives",
-    description: "Drive around at night with the windows down and our music playing.",
-    icon: "🚗",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "seven-wonders",
-    title: "Visit all 7 wonders together",
-    description: "See all seven wonders of the world together and collect memories from every one.",
-    icon: "🌍",
-    category: "travel",
-    completed: false
-  },
-  {
-    id: "concert",
-    title: "Go to a concert together",
-    description: "Stand in a crowd, scream the lyrics, and experience our favorite music together.",
-    icon: "🎶",
-    category: "adventures",
-    completed: false
-  },
-  {
-    id: "eiffel-tower",
-    title: "See the Eiffel Tower",
-    description: "Go to Paris and see the Eiffel Tower together.",
-    icon: "🗼",
-    category: "travel",
-    completed: false
-  },
-  {
-    id: "thrifting",
-    title: "Go thrifting together",
-    description: "Spend hours looking through random clothes and find something ridiculous we love.",
-    icon: "👕",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "taj-mahal",
-    title: "See the Taj Mahal",
-    description: "Stand in front of one of the world's most iconic symbols of love together.",
-    icon: "🕌",
-    category: "travel",
-    completed: false
-  },
-  {
-    id: "build-lego",
-    title: "Build LEGO together",
-    description: "Pick a LEGO set, build it together, and absolutely refuse to lose any pieces.",
-    icon: "🧱",
-    category: "little-things",
-    completed: false
-  },
-  {
-    id: "matching-mugs",
-    title: "Get matching mugs",
-    description: "Have matching mugs that are unnecessarily cute and become our everyday mugs.",
-    icon: "☕",
-    category: "us",
-    completed: false
-  },
-  {
-    id: "draw-each-other",
-    title: "Draw each other",
-    description: "Draw portraits of each other and try very hard not to offend one another.",
-    icon: "🎨",
-    category: "little-things",
-    completed: false
-  }
 ];
 
 // Display names/icons for known categories. Any category not listed here
@@ -766,10 +510,10 @@ function closeLetter() {
   document.getElementById("letter-overlay").classList.remove("open");
 }
 
-/* ---------- bucket list ---------- */
+/* ---------- bucket list (checklist) ---------- */
 const BUCKET_STORAGE_KEY = "bucket-list-completed-v1";
 let bucketActiveFilter = "all";
-let bucketCardRefs = {};
+let bucketRowRefs = {};
 
 function loadCompletedIds() {
   try {
@@ -794,8 +538,12 @@ function isItemCompleted(item) {
   return Boolean(item.completed) || bucketCompletedIds.has(item.id);
 }
 
-function markItemDone(id) {
-  bucketCompletedIds.add(id);
+function toggleItemDone(id) {
+  if (bucketCompletedIds.has(id)) {
+    bucketCompletedIds.delete(id);
+  } else {
+    bucketCompletedIds.add(id);
+  }
   saveCompletedIds(bucketCompletedIds);
   renderBucketList(bucketActiveFilter);
 }
@@ -837,12 +585,12 @@ function setupBucketListFilters() {
 }
 
 function renderBucketList(filter) {
-  const grid = document.getElementById("bucket-grid");
-  grid.innerHTML = "";
-  bucketCardRefs = {};
+  const list = document.getElementById("bucket-grid");
+  list.innerHTML = "";
+  bucketRowRefs = {};
 
   if (BUCKET_LIST.length === 0) {
-    grid.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
+    list.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
     updateBucketProgress();
     return;
   }
@@ -850,53 +598,47 @@ function renderBucketList(filter) {
   const items = filter === "all" ? BUCKET_LIST : BUCKET_LIST.filter((i) => i.category === filter);
 
   if (items.length === 0) {
-    grid.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
+    list.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
     updateBucketProgress();
     return;
   }
 
   items.forEach((item) => {
     const completed = isItemCompleted(item);
-    const card = document.createElement("div");
-    card.className = "bucket-card" + (completed ? " bucket-card--completed" : "");
-    card.id = `bucket-card-${item.id}`;
+    const row = document.createElement("div");
+    row.className = "bucket-row" + (completed ? " bucket-row--completed" : "");
+    row.id = `bucket-row-${item.id}`;
 
     let metaHtml = "";
     if (item.location || item.date) {
-      metaHtml = `<div class="bucket-card__meta">
+      metaHtml = `<div class="bucket-row__meta">
         ${item.location ? `<span>📍 ${escapeHtml(item.location)}</span>` : ""}
         ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ""}
       </div>`;
     }
 
-    let photoHtml = "";
-    if (completed && item.photo) {
-      photoHtml = `<img class="bucket-card__photo" src="${escapeHtml(item.photo)}" alt="${escapeHtml(item.title)}" onerror="this.remove()">`;
-    }
-
     const descriptionText = completed && item.completedNote ? item.completedNote : item.description;
 
-    card.innerHTML = `
-      <span class="bucket-card__icon">${item.icon || "🤍"}</span>
-      <p class="bucket-card__title">${escapeHtml(item.title)}</p>
-      <p class="bucket-card__desc">${escapeHtml(descriptionText || "")}</p>
+    const check = document.createElement("button");
+    check.className = "bucket-check";
+    check.type = "button";
+    check.setAttribute("aria-pressed", completed ? "true" : "false");
+    check.setAttribute("aria-label", completed ? `Mark "${item.title}" as not done` : `Mark "${item.title}" as done`);
+    check.textContent = completed ? "✓" : "○";
+    check.addEventListener("click", () => toggleItemDone(item.id));
+
+    const textWrap = document.createElement("div");
+    textWrap.className = "bucket-row__text";
+    textWrap.innerHTML = `
+      <p class="bucket-row__title">${item.icon ? item.icon + " " : ""}${escapeHtml(item.title)}</p>
+      <p class="bucket-row__desc">${escapeHtml(descriptionText || "")}</p>
       ${metaHtml}
-      ${photoHtml}
-      <p class="bucket-card__status ${completed ? "bucket-card__status--done" : ""}">${completed ? "✓ Done" : "○ Not yet"}</p>
     `;
 
-    if (!completed) {
-      const btn = document.createElement("button");
-      btn.className = "bucket-card__done-btn";
-      btn.type = "button";
-      btn.textContent = "Mark as done";
-      btn.setAttribute("aria-label", `Mark "${item.title}" as done`);
-      btn.addEventListener("click", () => markItemDone(item.id));
-      card.appendChild(btn);
-    }
-
-    grid.appendChild(card);
-    bucketCardRefs[item.id] = card;
+    row.appendChild(check);
+    row.appendChild(textWrap);
+    list.appendChild(row);
+    bucketRowRefs[item.id] = row;
   });
 
   updateBucketProgress();
@@ -937,11 +679,11 @@ function setupRandomDreamButton() {
     });
     renderBucketList("all");
 
-    const card = bucketCardRefs[pick.id];
-    if (card) {
-      card.classList.add("bucket-card--highlight");
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => card.classList.remove("bucket-card--highlight"), 2600);
+    const row = bucketRowRefs[pick.id];
+    if (row) {
+      row.classList.add("bucket-row--highlight");
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => row.classList.remove("bucket-row--highlight"), 2600);
     }
   });
 }
