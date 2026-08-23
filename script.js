@@ -65,6 +65,83 @@ const CONFIG = {
 };
 
 /* =========================================================================
+   ONE YEAR LETTERS — paste your two letters here. Line breaks are kept as-is.
+   This is a static site, so anything here is technically visible in the page
+   source before the unlock date if someone goes looking — it's hidden from
+   the normal browsing experience, not cryptographically secure.
+   ========================================================================= */
+const ONE_YEAR_UNLOCK_ISO = "2026-12-24T00:00:00+05:30"; // Asia/Kolkata, fixed offset (no DST there)
+
+const ONE_YEAR_LETTER_A = `
+PASTE DINDIN'S LETTER HERE
+`;
+
+const ONE_YEAR_LETTER_B = `
+PASTE PIYU'S LETTER HERE
+`;
+
+/* =========================================================================
+   OUR BUCKET LIST — add, remove, or edit items freely.
+   Each item needs a unique "id" (used to remember completion in localStorage).
+   Optional fields: date, location, photo, completedNote.
+   ========================================================================= */
+const BUCKET_LIST = [
+  {
+    id: "sunrise",
+    title: "Watch a sunrise together",
+    description: "Wake up ridiculously early and watch the sunrise together.",
+    icon: "🌅",
+    category: "experience",
+    completed: false,
+  },
+  {
+    id: "first-picture",
+    title: "Take our first proper picture together",
+    description: "One picture where we're finally standing next to each other.",
+    icon: "📸",
+    category: "memory",
+    completed: false,
+  },
+  {
+    id: "first-trip",
+    title: "Go on our first trip",
+    description: "Pick a place and disappear together for a few days.",
+    icon: "✈️",
+    category: "travel",
+    completed: false,
+  },
+  {
+    id: "favorite-food",
+    title: "Eat at a place we've always wanted to try",
+    description: "No excuses. We're ordering everything.",
+    icon: "🍜",
+    category: "food",
+    completed: false,
+  },
+  {
+    id: "stargazing",
+    title: "Go stargazing together",
+    description: "Find somewhere with almost no city lights and just look up.",
+    icon: "🌌",
+    category: "little-things",
+    completed: false,
+  },
+];
+
+// Display names/icons for known categories. Any category not listed here
+// still works — the filter button just falls back to a capitalized label.
+const CATEGORY_META = {
+  "experience": { icon: "✨", label: "Experience" },
+  "memory": { icon: "📸", label: "Memories" },
+  "travel": { icon: "✈️", label: "Travel" },
+  "food": { icon: "🍜", label: "Food" },
+  "little-things": { icon: "🌙", label: "Little things" },
+  "us": { icon: "❤️", label: "Us" },
+  "adventures": { icon: "🎡", label: "Adventures" },
+  "future": { icon: "🏠", label: "Future" },
+};
+
+/* =========================================================================
    Everything below this line runs the page — no need to edit it.
    ========================================================================= */
 
@@ -79,6 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGallery();
   renderPlaylist();
   setupHugButton();
+  setupOneYearLetters();
+  renderBucketList("all");
+  setupBucketListFilters();
+  setupRandomDreamButton();
   fetchWeather("a", CONFIG.cityA);
   fetchWeather("b", CONFIG.cityB);
   setInterval(() => fetchWeather("a", CONFIG.cityA), 10 * 60 * 1000);
@@ -91,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function tick() {
   updateDayCounter();
   updateMoon();
+  updateLettersCountdown();
 }
 
 /* ---------- day counter ---------- */
@@ -333,6 +415,278 @@ function setupHugButton() {
   button.addEventListener("click", () => {
     const pick = CONFIG.hugMessages[Math.floor(Math.random() * CONFIG.hugMessages.length)];
     message.textContent = pick;
+  });
+}
+
+/* ---------- one year letters ---------- */
+let lettersUnlockedTransitioned = false;
+
+function getOneYearUnlockDate() {
+  return new Date(ONE_YEAR_UNLOCK_ISO);
+}
+
+function isOneYearUnlocked() {
+  return Date.now() >= getOneYearUnlockDate().getTime();
+}
+
+function formatUnlockDateLabel() {
+  const formatted = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  }).format(getOneYearUnlockDate());
+  return `Unlocks ${formatted}`;
+}
+
+function setupOneYearLetters() {
+  document.getElementById("letters-unlock-date").textContent = formatUnlockDateLabel();
+
+  if (isOneYearUnlocked()) {
+    lettersUnlockedTransitioned = true;
+    showLettersUnlocked();
+  } else {
+    showLettersLocked();
+  }
+
+  document.getElementById("envelope-locked-a").addEventListener("click", () => shakeLockedEnvelope("envelope-locked-a"));
+  document.getElementById("envelope-locked-b").addEventListener("click", () => shakeLockedEnvelope("envelope-locked-b"));
+  document.getElementById("envelope-unlocked-a").addEventListener("click", () => openLetter(ONE_YEAR_LETTER_A));
+  document.getElementById("envelope-unlocked-b").addEventListener("click", () => openLetter(ONE_YEAR_LETTER_B));
+  document.getElementById("letter-close").addEventListener("click", closeLetter);
+  document.getElementById("letter-overlay").addEventListener("click", (e) => {
+    if (e.target.id === "letter-overlay") closeLetter();
+  });
+}
+
+function shakeLockedEnvelope(id) {
+  const el = document.getElementById(id);
+  el.classList.remove("shake");
+  void el.offsetWidth; // force reflow so the shake animation can restart on repeat clicks
+  el.classList.add("shake");
+  document.getElementById("letters-shake-message").textContent = "Not yet. Just a little longer. ❤️";
+}
+
+function showLettersLocked() {
+  document.getElementById("letters-locked").style.display = "block";
+  document.getElementById("letters-unlocked").style.display = "none";
+}
+
+function showLettersUnlocked() {
+  document.getElementById("letters-locked").style.display = "none";
+  document.getElementById("letters-unlocked").style.display = "block";
+}
+
+function updateLettersCountdown() {
+  if (isOneYearUnlocked()) {
+    if (!lettersUnlockedTransitioned) {
+      lettersUnlockedTransitioned = true;
+      showLettersUnlocked();
+    }
+    return;
+  }
+
+  const diff = getOneYearUnlockDate().getTime() - Date.now();
+  const pad = (n) => String(n).padStart(2, "0");
+  const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+
+  document.getElementById("letters-cd-days").textContent = pad(days);
+  document.getElementById("letters-cd-hours").textContent = pad(hours);
+  document.getElementById("letters-cd-mins").textContent = pad(mins);
+  document.getElementById("letters-cd-secs").textContent = pad(secs);
+}
+
+function openLetter(text) {
+  const overlay = document.getElementById("letter-overlay");
+  document.getElementById("letter-text").textContent = text.trim();
+  overlay.classList.add("open");
+}
+
+function closeLetter() {
+  document.getElementById("letter-overlay").classList.remove("open");
+}
+
+/* ---------- bucket list ---------- */
+const BUCKET_STORAGE_KEY = "bucket-list-completed-v1";
+let bucketActiveFilter = "all";
+let bucketCardRefs = {};
+
+function loadCompletedIds() {
+  try {
+    const raw = localStorage.getItem(BUCKET_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch (e) {
+    return new Set();
+  }
+}
+
+function saveCompletedIds(set) {
+  try {
+    localStorage.setItem(BUCKET_STORAGE_KEY, JSON.stringify([...set]));
+  } catch (e) {
+    console.warn("Could not save bucket list progress:", e);
+  }
+}
+
+let bucketCompletedIds = loadCompletedIds();
+
+function isItemCompleted(item) {
+  return Boolean(item.completed) || bucketCompletedIds.has(item.id);
+}
+
+function markItemDone(id) {
+  bucketCompletedIds.add(id);
+  saveCompletedIds(bucketCompletedIds);
+  renderBucketList(bucketActiveFilter);
+}
+
+function capitalizeCategory(s) {
+  if (!s) return "";
+  const spaced = s.replace(/-/g, " ");
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+
+function setupBucketListFilters() {
+  const container = document.getElementById("bucket-filters");
+  const categories = [...new Set(BUCKET_LIST.map((i) => i.category))];
+
+  const buttons = [
+    { key: "all", label: "All" },
+    ...categories.map((c) => ({
+      key: c,
+      label: CATEGORY_META[c] ? `${CATEGORY_META[c].icon} ${CATEGORY_META[c].label}` : capitalizeCategory(c),
+    })),
+  ];
+
+  container.innerHTML = "";
+  buttons.forEach((b) => {
+    const btn = document.createElement("button");
+    btn.className = "bucket-filter";
+    btn.type = "button";
+    btn.textContent = b.label;
+    btn.dataset.key = b.key;
+    btn.setAttribute("aria-pressed", b.key === bucketActiveFilter ? "true" : "false");
+    btn.addEventListener("click", () => {
+      bucketActiveFilter = b.key;
+      container.querySelectorAll(".bucket-filter").forEach((el) => el.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+      renderBucketList(bucketActiveFilter);
+    });
+    container.appendChild(btn);
+  });
+}
+
+function renderBucketList(filter) {
+  const grid = document.getElementById("bucket-grid");
+  grid.innerHTML = "";
+  bucketCardRefs = {};
+
+  if (BUCKET_LIST.length === 0) {
+    grid.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
+    updateBucketProgress();
+    return;
+  }
+
+  const items = filter === "all" ? BUCKET_LIST : BUCKET_LIST.filter((i) => i.category === filter);
+
+  if (items.length === 0) {
+    grid.innerHTML = `<p class="bucket-empty">Nothing here yet.<br>Maybe we should add something.</p>`;
+    updateBucketProgress();
+    return;
+  }
+
+  items.forEach((item) => {
+    const completed = isItemCompleted(item);
+    const card = document.createElement("div");
+    card.className = "bucket-card" + (completed ? " bucket-card--completed" : "");
+    card.id = `bucket-card-${item.id}`;
+
+    let metaHtml = "";
+    if (item.location || item.date) {
+      metaHtml = `<div class="bucket-card__meta">
+        ${item.location ? `<span>📍 ${escapeHtml(item.location)}</span>` : ""}
+        ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ""}
+      </div>`;
+    }
+
+    let photoHtml = "";
+    if (completed && item.photo) {
+      photoHtml = `<img class="bucket-card__photo" src="${escapeHtml(item.photo)}" alt="${escapeHtml(item.title)}" onerror="this.remove()">`;
+    }
+
+    const descriptionText = completed && item.completedNote ? item.completedNote : item.description;
+
+    card.innerHTML = `
+      <span class="bucket-card__icon">${item.icon || "🤍"}</span>
+      <p class="bucket-card__title">${escapeHtml(item.title)}</p>
+      <p class="bucket-card__desc">${escapeHtml(descriptionText || "")}</p>
+      ${metaHtml}
+      ${photoHtml}
+      <p class="bucket-card__status ${completed ? "bucket-card__status--done" : ""}">${completed ? "✓ Done" : "○ Not yet"}</p>
+    `;
+
+    if (!completed) {
+      const btn = document.createElement("button");
+      btn.className = "bucket-card__done-btn";
+      btn.type = "button";
+      btn.textContent = "Mark as done";
+      btn.setAttribute("aria-label", `Mark "${item.title}" as done`);
+      btn.addEventListener("click", () => markItemDone(item.id));
+      card.appendChild(btn);
+    }
+
+    grid.appendChild(card);
+    bucketCardRefs[item.id] = card;
+  });
+
+  updateBucketProgress();
+}
+
+function updateBucketProgress() {
+  const total = BUCKET_LIST.length;
+  const completed = BUCKET_LIST.filter(isItemCompleted).length;
+  const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  document.getElementById("bucket-progress-label").textContent =
+    total === 0 ? "Our little list" : `Our little list — ${completed} of ${total} completed`;
+  document.getElementById("bucket-progress-fill").style.width = `${percent}%`;
+  document.getElementById("bucket-progress-percent").textContent = total === 0 ? "" : `${percent}% complete`;
+
+  const banner = document.getElementById("bucket-all-done");
+  if (banner) {
+    banner.style.display = total > 0 && completed === total ? "block" : "none";
+  }
+}
+
+function setupRandomDreamButton() {
+  document.getElementById("bucket-random-btn").addEventListener("click", () => {
+    const incomplete = BUCKET_LIST.filter((i) => !isItemCompleted(i));
+    const messageEl = document.getElementById("bucket-random-message");
+
+    if (incomplete.length === 0) {
+      messageEl.textContent = "We actually did everything. 🥹";
+      return;
+    }
+
+    const pick = incomplete[Math.floor(Math.random() * incomplete.length)];
+    messageEl.textContent = "How about this one? 👀";
+
+    bucketActiveFilter = "all";
+    document.querySelectorAll(".bucket-filter").forEach((el) => {
+      el.setAttribute("aria-pressed", el.dataset.key === "all" ? "true" : "false");
+    });
+    renderBucketList("all");
+
+    const card = bucketCardRefs[pick.id];
+    if (card) {
+      card.classList.add("bucket-card--highlight");
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => card.classList.remove("bucket-card--highlight"), 2600);
+    }
   });
 }
 
