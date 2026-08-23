@@ -44,7 +44,7 @@ const CONFIG = {
 
   // Spotify playlist embed. Open your playlist in Spotify -> Share -> Embed playlist,
   // then paste just the src URL from the iframe here (looks like the example below).
-  spotifyEmbedUrl: "https://open.spotify.com/playlist/7sQgpDEQvHHD1Mv849huGC",
+  spotifyEmbedUrl: "https://open.spotify.com/embed/playlist/7sQgpDEQvHHD1Mv849huGC?utm_source=generator&si=4293fc7b25414a86",
 
 
   // Flip cards — front is the prompt, back is the reveal
